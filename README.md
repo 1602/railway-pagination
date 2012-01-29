@@ -1,6 +1,6 @@
 ## About
 
-Siple pagination plugin for RailwayJS MVC framework.
+Simple pagination plugin for RailwayJS MVC framework.
 
 ## Installation
 
