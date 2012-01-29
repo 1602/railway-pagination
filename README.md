@@ -4,13 +4,13 @@ Siple pagination plugin for RailwayJS MVC framework.
 
 ## Usage
 
-1. turn on: **npmfile.js**
+Step 1. Plig-in: **npmfile.js**
 
 ```javascript
     require('railway-pagination');
 ```
 
-2. controller: **posts_controller.js**
+Step 2. Controller: **posts_controller.js**
 
 ```javascript
     action(function index() {
@@ -21,7 +21,7 @@ Siple pagination plugin for RailwayJS MVC framework.
     });
 ```
 
-3. view: **app/views/posts/index.ejs**
+Step 3. View: **app/views/posts/index.ejs**
 
 ```javascript
     paginate(posts);
