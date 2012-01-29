@@ -4,22 +4,22 @@ Siple pagination plugin for RailwayJS MVC framework.
 
 ## Usage
 
-`npmfile.js`
+1. turn on: **npmfile.js**
 
     require('railway-pagination');
 
-`posts_controller.js`
+2. controller: **posts_controller.js**
 
-   action(function index() {
+    action(function index() {
        var page = req.param('page') || 1;
        Post.paginate({limit: 10, page: page}, function (err, posts) {
            if (err) render({posts: posts});
        });
-   });
+    });
 
-`app/views/posts/index.ejs`:
+3. view: **app/views/posts/index.ejs**
 
-   paginate(posts);
+    paginate(posts);
 
 ## License
 
