@@ -2,6 +2,10 @@
 
 Siple pagination plugin for RailwayJS MVC framework.
 
+## Installation
+
+    npm insall railway-pagination
+
 ## Usage
 
 Step 1. Plig-in: **npmfile.js**
