@@ -24,6 +24,7 @@ Step 2. Controller: **posts_controller.js**
        });
     });
 ```
+Please notice that you can pass in the order and where option or leave them out.
 
 Step 3. View: **app/views/posts/index.ejs**
 
