@@ -1,14 +1,14 @@
-// File Name: node_modules/railway-pagination/index.js
-// Purpose: railway-pagination main file.  
-// Original author: Anatoliy C.
-//
-// Update History
-// Name            Date       Description
-// --------------- ---------- ------------------------------------------------------------------------------
-// Jude L.         04/26/2012 - Updated the paginateCollection to allow the passing of order option to the Model.all routine.
-// Jude L.         05/19/2012 - Updated the paginateCollection to allow the passing of where option to the Model.all routine
-//                              if one is provided.
-
+/** File Name: node_modules/railway-pagination/index.js
+* Purpose: railway-pagination main file.  
+* Original author: Anatoliy C.
+*
+* Update History
+* Name            Date       Description
+* --------------- ---------- ------------------------------------------------------------------------------
+* Jude L.         04/26/2012 - Updated the paginateCollection to allow the passing of order option to the Model.all routine.
+* Jude L.         05/19/2012 - Updated the paginateCollection to allow the passing of where option to the Model.all routine
+                              if one is provided.
+**/
 
 exports.init = function () {
     // add view helper
@@ -51,15 +51,15 @@ function paginateCollection(opts, callback) {
     var Model = this;
 
     Model.count(function (err, totalRecords) {
-      if (where != null) {
-        Model.all({limit: limit, offset: (page - 1) * limit, order: order, where: where }, function (err, records) {
-            if (err) return callback(err);
-            records.totalRecords = totalRecords;
-            records.currentPage = page;
-            records.totalPages = Math.ceil(totalRecords / limit);
-            callback(null, records);
-        });
-      } else {
+        if (where != null) {
+            Model.all({limit: limit, offset: (page - 1) * limit, order: order, where: where }, function (err, records) {
+                if (err) return callback(err);
+                records.totalRecords = totalRecords;
+                records.currentPage = page;
+                records.totalPages = Math.ceil(totalRecords / limit);
+                callback(null, records);
+            });
+        } else {
         Model.all({limit: limit, offset: (page - 1) * limit, order: order }, function (err, records) {
             if (err) return callback(err);
             records.totalRecords = totalRecords;
@@ -67,8 +67,7 @@ function paginateCollection(opts, callback) {
             records.totalPages = Math.ceil(totalRecords / limit);
             callback(null, records);
         });
-      } // end of if.
-
+      }
     });
 }
 

@@ -19,7 +19,7 @@ Step 2. Controller: **posts_controller.js**
 ```javascript
     action(function index() {
        var page = req.param('page') || 1;
-       Post.paginate({order: 'title', where: {'post_status':'ACTIVE'}, limit: 10, page: page}, function (err, posts) {
+       Post.paginate({order: 'title', where: {'postStatus':'ACTIVE'}, limit: 10, page: page}, function (err, posts) {
            if (err) render({posts: posts});
        });
     });
