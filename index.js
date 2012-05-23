@@ -1,3 +1,15 @@
+/** File Name: node_modules/railway-pagination/index.js
+* Purpose: railway-pagination main file.  
+* Original author: Anatoliy C.
+*
+* Update History
+* Name            Date       Description
+* --------------- ---------- ------------------------------------------------------------------------------
+* Jude L.         04/26/2012 - Updated the paginateCollection to allow the passing of order option to the Model.all routine.
+* Jude L.         05/19/2012 - Updated the paginateCollection to allow the passing of where option to the Model.all routine
+                              if one is provided.
+**/
+
 exports.init = function () {
     // add view helper
     railway.helpers.HelperSet.prototype.paginate = paginateHelper;
@@ -34,16 +46,28 @@ function paginateHelper(collection) {
 function paginateCollection(opts, callback) {
     var limit = opts.limit || 10;
     var page = opts.page || 1;
+    var order = opts.order||'1';
+    var where = opts.where;
     var Model = this;
 
     Model.count(function (err, totalRecords) {
-        Model.all({limit: limit, offset: (page - 1) * limit }, function (err, records) {
+        if (where != null) {
+            Model.all({limit: limit, offset: (page - 1) * limit, order: order, where: where }, function (err, records) {
+                if (err) return callback(err);
+                records.totalRecords = totalRecords;
+                records.currentPage = page;
+                records.totalPages = Math.ceil(totalRecords / limit);
+                callback(null, records);
+            });
+        } else {
+        Model.all({limit: limit, offset: (page - 1) * limit, order: order }, function (err, records) {
             if (err) return callback(err);
             records.totalRecords = totalRecords;
             records.currentPage = page;
             records.totalPages = Math.ceil(totalRecords / limit);
             callback(null, records);
         });
+      }
     });
 }
 
