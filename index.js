@@ -5,17 +5,25 @@
 * Update History
 * Name            Date       Description
 * --------------- ---------- ------------------------------------------------------------------------------
+* Asp3ctus        14/03/2013 - Migrate to compund and new jugglingdb api
 * Jude L.         04/26/2012 - Updated the paginateCollection to allow the passing of order option to the Model.all routine.
 * Jude L.         05/19/2012 - Updated the paginateCollection to allow the passing of where option to the Model.all routine
                               if one is provided.
 **/
 
-exports.init = function () {
+exports.init = function (compound) {
     // add view helper
-    railway.helpers.HelperSet.prototype.paginate = paginateHelper;
+    compound.helpers.HelperSet.prototype.paginate = paginateHelper;
     // add orm method
     // sorry, jugglingdb only for now
-    railway.orm.AbstractClass.paginate = paginateCollection;
+    compound.on('models', function(){
+        for(var m in compound.models){
+            if(compound.models.hasOwnProperty(m)){
+                compound.models[m].paginate = paginateCollection;
+            }
+        }
+
+    });
 };
 
 // global view helper
@@ -28,8 +36,8 @@ function paginateHelper(collection,step) {
     var prevClass = 'prev' + (page === 1 ? ' disabled': '');
     var nextClass = 'next' + (page === pages ? ' disabled': '');
     html += '<ul><li class="' + prevClass + '">';
-    html += railway.helpers.link_to('&larr; First', '?page=1');
-    html += railway.helpers.link_to('&larr; Previous', '?page=' + (page - 1));
+    html += this.link_to('&larr; First', '?page=1');
+    html += this.link_to('&larr; Previous', '?page=' + (page - 1));
     html += '</li>';
 
     var start = ( page <= step ) ? 1 : page-step;
@@ -54,12 +62,12 @@ function paginateHelper(collection,step) {
         if (i == page) {
             html += '<li class="active"><a href="#">' + i + '</a></li>';
         } else {
-            html += '<li>' + railway.helpers.link_to(i, '?page=' + i) + '</li>';
+            html += '<li>' + this.link_to(i, '?page=' + i) + '</li>';
         }
     }
     html += '<li class="' + nextClass + '">';
-    html += railway.helpers.link_to('Next &rarr;', '?page=' + (page + 1));
-    html += railway.helpers.link_to('Last &rarr;', '?page=' + pages);
+    html += this.link_to('Next &rarr;', '?page=' + (page + 1));
+    html += this.link_to('Last &rarr;', '?page=' + pages);
     html += '</li></ul></div>';
     return html;
 };
