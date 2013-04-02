@@ -4,11 +4,11 @@ Simple pagination plugin for RailwayJS MVC framework.
 
 ## Installation
 
-    npm insall railway-pagination
+    npm intsall railway-pagination
 
 ## Usage
 
-Step 1. Plig-in: **npmfile.js**
+Step 1. Plug-in: **npmfile.js**
 
 ```javascript
     require('railway-pagination');
