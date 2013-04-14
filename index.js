@@ -36,8 +36,8 @@ function paginateHelper(collection,step) {
     var prevClass = 'prev' + (page === 1 ? ' disabled': '');
     var nextClass = 'next' + (page === pages ? ' disabled': '');
     html += '<ul><li class="' + prevClass + '">';
-    html += this.link_to('&larr; First', '?page=1');
-    html += this.link_to('&larr; Previous', '?page=' + (page - 1));
+    html += this.link_to('&larr; First', (page === 1) ? '#' : '?page=1');
+    html += this.link_to('&larr; Previous', (page === 1) ? '#' : ('?page=' + (page - 1)));
     html += '</li>';
 
     var start = ( page <= step ) ? 1 : page-step;
@@ -46,6 +46,10 @@ function paginateHelper(collection,step) {
     if ( page > pages-step )
     {
         start = pages-(step*2);
+    }
+
+    if (start < 1) {
+        start = 1;
     }
 
     if ( end < (step*2) )
@@ -66,8 +70,8 @@ function paginateHelper(collection,step) {
         }
     }
     html += '<li class="' + nextClass + '">';
-    html += this.link_to('Next &rarr;', '?page=' + (page + 1));
-    html += this.link_to('Last &rarr;', '?page=' + pages);
+    html += this.link_to('Next &rarr;', (page === pages) ? '#' : '?page=' + (page + 1));
+    html += this.link_to('Last &rarr;', (page === pages) ? '#' : '?page=' + pages);
     html += '</li></ul></div>';
     return html;
 };
